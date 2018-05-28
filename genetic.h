@@ -31,7 +31,9 @@ int inteiro(int a,
 
 void make_new_population(individuo *new_population,
                          individuo *combined_group,
-                         int POPULACAO);
+                         int POPULACAO,
+                         int PERIODOS,
+                         int TERRENOS);
 
 void merge_populations(individuo *group_A,
                        individuo *group_B,
