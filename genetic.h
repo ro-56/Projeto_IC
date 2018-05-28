@@ -40,7 +40,14 @@ void merge_populations(individuo *group_A,
                        int TERRENOS,
                        int POPULACAO);
 
-void mutation();
+void mutation(individuo object,
+              int ESPECIES,
+              int PERIODOS,
+              int TERRENOS,
+              int PERIODOS_ANO,
+              int *temp_proc,
+              int **per_plantio,
+              int *lucratividade_especies);
 
 individuo torneio(individuo pai1,
                   individuo pai2);

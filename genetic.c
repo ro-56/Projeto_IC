@@ -2,15 +2,23 @@
 #include "genetic.h"
 
 #define PROBABILIDADE_CROSSOVER 0.9
-#define PROBABILIDADE_MUTACAO 0.01
+#define PROBABILIDADE_MUTATION 0.05
+#define MUTATION_SIZE 8
+// ^^^ Pode dar problema caso a quantidade de terrenos seja menor que esse numero.
 #define MAX_CROSSOVER_PERCENTAGE 0.6
+
 
 void run_generation(individuo *populacao,
                     int POPULACAO,
                     int PERIODOS,
                     int TERRENOS,
-                    int *lucratividade_especies)
+                    int *lucratividade_especies,
+                    int ESPECIES,
+                    int PERIODOS_ANO,
+                    int *temp_proc,
+                    int **per_plantio)
 {
+    
     /*************************** MALLOC ******************************/
     int i,j;
     
@@ -52,20 +60,50 @@ void run_generation(individuo *populacao,
         pai2 = torneio(populacao[indPai1[i]], populacao[indPai2[i]]);
         
         //crossover
-        crossover(pai1,
-                  pai2,
-                  &(filhos[i]),
-                  &(filhos[i+1]),
-                  PERIODOS,
-                  TERRENOS,
-                  lucratividade_especies);
+        double aux = uniforme(0,1);
+        
+        if (aux <= PROBABILIDADE_CROSSOVER)
+        {
+            crossover(pai1,
+                      pai2,
+                      &filhos[i],
+                      &filhos[i+1],
+                      PERIODOS,
+                      TERRENOS,
+                      lucratividade_especies);
+        }
+        else
+        {
+            copy_individuo(pai1,
+                           &filhos[i],
+                           PERIODOS,
+                           TERRENOS);
+            copy_individuo(pai2,
+                           &filhos[i+1],
+                           PERIODOS,
+                           TERRENOS);
+        }
         
         //mutacao
+        mutation(filhos[i],
+                 ESPECIES,
+                 PERIODOS,
+                 TERRENOS,
+                 PERIODOS_ANO,
+                 temp_proc,
+                 per_plantio,
+                 lucratividade_especies);
+        mutation(filhos[i+1],
+                 ESPECIES,
+                 PERIODOS,
+                 TERRENOS,
+                 PERIODOS_ANO,
+                 temp_proc,
+                 per_plantio,
+                 lucratividade_especies);
         
     }
     //populacao resultante
-//    ordenar_populacao(filhos,POPULACAO);
-    
     merge_populations(populacao,
                       filhos,
                       mista,
@@ -75,8 +113,7 @@ void run_generation(individuo *populacao,
     
     ordenar_populacao(mista, 2*POPULACAO);
     
-    make_new_population(populacao, mista, POPULACAO);
-    
+//    make_new_population(populacao, mista, POPULACAO);
     
     /*************************** FREE ******************************/
     
@@ -257,10 +294,43 @@ void merge_populations(individuo *group_A,
     }
 }
 /**/
-//void mutation()
-//{
-//
-//}
+void mutation(individuo object,  // test this
+              int ESPECIES,
+              int PERIODOS,
+              int TERRENOS,
+              int PERIODOS_ANO,
+              int *temp_proc,
+              int **per_plantio,
+              int *lucratividade_especies)
+{
+    int *mutated, i, mutations = 0;
+    mutated = (int *)calloc(TERRENOS, sizeof(int));
+    double aux = uniforme(0,1);
+    
+    if (aux <= PROBABILIDADE_MUTATION)
+    {
+        while (mutations < MUTATION_SIZE)
+        {
+            i = inteiro(0,TERRENOS);
+            
+            if (mutated[i])
+                continue;
+            
+            object.f_obj = create_row (object.sol[i],
+                                       ESPECIES,
+                                       PERIODOS,
+                                       PERIODOS_ANO,
+                                       temp_proc,
+                                       per_plantio,
+                                       lucratividade_especies);
+            mutated[i] = 1;
+            mutations++;
+        }
+    }
+    free(mutated);
+    
+    return;
+}
 /**/
 void ordenar_populacao(individuo *populacao,
                        int POPULACAO)

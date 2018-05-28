@@ -61,7 +61,15 @@ int main()
     
     /*************************** TEST ******************************/
     
-    run_generation(populacao, POPULACAO, PERIODOS, TERRENOS, lucratividade_especies);
+    run_generation(populacao,
+                   POPULACAO,
+                   PERIODOS,
+                   TERRENOS,
+                   lucratividade_especies,
+                   ESPECIES,
+                   PERIODOS_ANO,
+                   temp_proc,
+                   per_plantio);
     
     /*************************** PRINT ******************************/
     gettimeofday(&stop_time, NULL);

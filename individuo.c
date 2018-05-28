@@ -16,9 +16,9 @@ individuo criar_individuo(int PERIODOS,
     especies *head = NULL, *cursor = NULL;
     
     // inicializa a matriz solucao de cada individuo
-    int **matriz = (int **)malloc(TERRENOS * sizeof(int *));
+    int **matriz = (int **)calloc(TERRENOS, sizeof(int *)); //malloc?
     for (i=0;i<TERRENOS;i++)
-        matriz[i] = (int *)malloc(PERIODOS * sizeof(int));
+        matriz[i] = (int *)calloc(PERIODOS, sizeof(int));   //malloc?
     
     // Cria a matriz solucao
     int esp_selecionada = 0, plant_count = 0, last_esp = -1;

@@ -21,6 +21,7 @@ individuo criar_individuo (int PERIODOS,
                            int **per_plantio,
                            int PERIODOS_ANO,
                            int *lucratividade_especies);
+
 int create_row (int *row,
                 int ESPECIES,
                 int PERIODOS,
@@ -49,7 +50,11 @@ void run_generation(individuo *populacao,
                     int POPULACAO,
                     int PERIODOS,
                     int TERRENOS,
-                    int *lucratividade_especies);
+                    int *lucratividade_especies,
+                    int ESPECIES,
+                    int PERIODOS_ANO,
+                    int *temp_proc,
+                    int **per_plantio);
 
 
 
