@@ -4,6 +4,7 @@
 
 #define MICRO_PER_SECOND 1000000
 #define POPULACAO 100
+#define GENERATIONS 1000
 
 int main()
 {
@@ -60,17 +61,24 @@ int main()
     ordenar_populacao(populacao, POPULACAO);
     
     /*************************** TEST ******************************/
+    for (i = 0; i < GENERATIONS; i++)
+    {
+        run_generation(populacao,
+                       POPULACAO,
+                       PERIODOS,
+                       TERRENOS,
+                       lucratividade_especies,
+                       ESPECIES,
+                       PERIODOS_ANO,
+                       temp_proc,
+                       per_plantio);
+    }
     
-    run_generation(populacao,
-                   POPULACAO,
-                   PERIODOS,
-                   TERRENOS,
-                   lucratividade_especies,
-                   ESPECIES,
-                   PERIODOS_ANO,
-                   temp_proc,
-                   per_plantio);
-    
+    display_individuo(populacao[0],
+                      PERIODOS,
+                      TERRENOS);
+    display_best_f_obj(populacao,
+                       POPULACAO);
     /*************************** PRINT ******************************/
     gettimeofday(&stop_time, NULL);
     resul = (double)(stop_time.tv_sec - start_time.tv_sec);

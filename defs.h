@@ -56,6 +56,27 @@ void run_generation(individuo *populacao,
                     int *temp_proc,
                     int **per_plantio);
 
+/*** RESULTADOS ***/
 
+void display_average_f_obj(individuo *group,
+                           int POPULACAO);
 
+void display_best_f_obj(individuo *group,
+                        int POPULACAO);
 
+/*
+void display_best_individuo(individuo *group,
+                            int POPULACAO,
+                            int PERIODOS,
+                            int TERRENOS);
+*/
+
+void display_individuo(individuo object,
+                       int PERIODOS,
+                       int TERRENOS);
+
+float get_average_f_obj(individuo *group,
+                        int POPULACAO);
+
+int get_best_f_obj(individuo *group,
+                   int POPULACAO);

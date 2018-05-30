@@ -3,7 +3,7 @@
 
 #define PROBABILIDADE_CROSSOVER 0.9
 #define MAX_CROSSOVER_PERCENTAGE 0.6 //[0.5 , 1]
-#define PROBABILIDADE_MUTATION 0.05
+#define PROBABILIDADE_MUTATION 0.1
 #define MUTATION_SIZE 2
 // ^^^ Pode dar problema caso a quantidade de terrenos seja menor que esse numero.
 #define ELITISM_FACTOR 0.05
