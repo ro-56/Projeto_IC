@@ -14,7 +14,7 @@ typedef struct individuo
     int **sol;
 } individuo;
 
-individuo criar_individuo (int PERIODOS,
+individuo criarIndividuo (int PERIODOS,
                            int ESPECIES,
                            int TERRENOS,
                            int *temp_proc,
@@ -22,7 +22,7 @@ individuo criar_individuo (int PERIODOS,
                            int PERIODOS_ANO,
                            int *lucratividade_especies);
 
-int create_row (int *row,
+int createRow (int *row,
                 int ESPECIES,
                 int PERIODOS,
                 int PERIODOS_ANO,
@@ -32,7 +32,7 @@ int create_row (int *row,
 
 /*** LEITURA ***/
 
-void ler_dados (int *PERIODOS_ANO, 
+void lerDados (int *PERIODOS_ANO, 
                 int *PERIODOS,
                 int *ESPECIES,
                 int *TERRENOS,
@@ -43,26 +43,26 @@ void ler_dados (int *PERIODOS_ANO,
 
 /*** GENETICO ***/
 
-void ordenar_populacao(individuo *populacao,
-                       int POPULACAO);
+void ordenarPopulacao(individuo *populacao,
+                      int POPULACAO);
 
-void run_generation(individuo *populacao,
-                    int POPULACAO,
-                    int PERIODOS,
-                    int TERRENOS,
-                    int *lucratividade_especies,
-                    int ESPECIES,
-                    int PERIODOS_ANO,
-                    int *temp_proc,
-                    int **per_plantio);
+void runGeneration(individuo *populacao,
+                   int POPULACAO,
+                   int PERIODOS,
+                   int TERRENOS,
+                   int *lucratividade_especies,
+                   int ESPECIES,
+                   int PERIODOS_ANO,
+                   int *temp_proc,
+                   int **per_plantio);
 
 /*** RESULTADOS ***/
 
-void display_average_f_obj(individuo *group,
-                           int POPULACAO);
-
-void display_best_f_obj(individuo *group,
+void displayAverageFObj(individuo *group,
                         int POPULACAO);
+
+void displayBestFObj(individuo *group,
+                     int POPULACAO);
 
 /*
 void display_best_individuo(individuo *group,
@@ -71,12 +71,12 @@ void display_best_individuo(individuo *group,
                             int TERRENOS);
 */
 
-void display_individuo(individuo object,
+void displayIndividuo(individuo object,
                        int PERIODOS,
                        int TERRENOS);
 
-float get_average_f_obj(individuo *group,
-                        int POPULACAO);
+float getAverageFObj(individuo *group,
+                     int POPULACAO);
 
-int get_best_f_obj(individuo *group,
-                   int POPULACAO);
+int getBestFObj(individuo *group,
+                int POPULACAO);

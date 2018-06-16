@@ -9,7 +9,7 @@
 #define ELITISM_FACTOR 0.05
 
 
-void run_generation(individuo *populacao,
+void runGeneration (individuo *populacao,
                     int POPULACAO,
                     int PERIODOS,
                     int TERRENOS,
@@ -52,76 +52,72 @@ void run_generation(individuo *populacao,
     
     /*************************** GENERATION ******************************/
     
-    gerar_conjunto_pais(populacao, indPai1, indPai2, POPULACAO);
+    gerarConjuntoPais (populacao, indPai1, indPai2, POPULACAO);
     
     for (i = 0; i < POPULACAO; i += 2)
     {
-        //torneio
         pai1 = torneio(populacao[indPai1[i]], populacao[indPai2[i]]);
         pai2 = torneio(populacao[indPai1[i+1]], populacao[indPai2[i+1]]);
         
-        //crossover
         double rand_num = uniforme(0,1);
         
         if (rand_num <= PROBABILIDADE_CROSSOVER)
         {
-            crossover(pai1,
-                      pai2,
-                      &filhos[i],
-                      &filhos[i+1],
-                      PERIODOS,
-                      TERRENOS,
-                      lucratividade_especies);
+            crossover (pai1,
+                       pai2,
+                       &filhos[i],
+                       &filhos[i+1],
+                       PERIODOS,
+                       TERRENOS,
+                       lucratividade_especies);
         }
         else
         {
-            copy_individuo(pai1,
+            copyIndividuo (pai1,
                            &filhos[i],
                            PERIODOS,
                            TERRENOS);
-            copy_individuo(pai2,
+            copyIndividuo (pai2,
                            &filhos[i+1],
                            PERIODOS,
                            TERRENOS);
         }
         
-        //mutacao
-        mutation(filhos[i],
-                 ESPECIES,
-                 PERIODOS,
-                 TERRENOS,
-                 PERIODOS_ANO,
-                 temp_proc,
-                 per_plantio,
-                 lucratividade_especies);
-        mutation(filhos[i+1],
-                 ESPECIES,
-                 PERIODOS,
-                 TERRENOS,
-                 PERIODOS_ANO,
-                 temp_proc,
-                 per_plantio,
-                 lucratividade_especies);
+        mutation (filhos[i],
+                  ESPECIES,
+                  PERIODOS,
+                  TERRENOS,
+                  PERIODOS_ANO,
+                  temp_proc,
+                  per_plantio,
+                  lucratividade_especies);
+        mutation (filhos[i+1],
+                  ESPECIES,
+                  PERIODOS,
+                  TERRENOS,
+                  PERIODOS_ANO,
+                  temp_proc,
+                  per_plantio,
+                  lucratividade_especies);
         
     }
     
-    //populacao resultante
-    merge_populations(populacao,
+    mergePopulations (populacao,
                       filhos,
                       mista,
                       PERIODOS,
                       TERRENOS,
                       POPULACAO);
     
-    ordenar_populacao(mista, 2*POPULACAO);
+    ordenarPopulacao (mista, 2*POPULACAO);
     
-    make_new_population(populacao,
-                        mista,
-                        POPULACAO,
-                        PERIODOS,
-                        TERRENOS);
+    makeNewPopulation (populacao,
+                       mista,
+                       POPULACAO,
+                       PERIODOS,
+                       TERRENOS);
     
-    ordenar_populacao(populacao, POPULACAO);
+    ordenarPopulacao(populacao, POPULACAO);
 
     /*************************** FREE ******************************/
     
@@ -133,18 +129,18 @@ void run_generation(individuo *populacao,
         }
         free(filhos[i].sol);
     }
-    free(filhos);
-    free(mista);
-    free(indPai1);
-    free(indPai2);
+    free (filhos);
+    free (mista);
+    free (indPai1);
+    free (indPai2);
 }
 
 /*************************** AUX FUNCTIONS ******************************/
 
-int calcular_nova_fobj(individuo solucao,
-                       int PERIODOS,
-                       int TERRENOS,
-                       int *lucratividade_especies)
+int calcularNovaFObj (individuo solucao,
+                      int PERIODOS,
+                      int TERRENOS,
+                      int *lucratividade_especies)
 {
     int i, j, fobj = 0, last = 0;
     
@@ -163,7 +159,7 @@ int calcular_nova_fobj(individuo solucao,
     return fobj;
 }
 /*****/
-int comparar_indiv(const void *i,
+int compararIndiv (const void *i,
                    const void *j)
 {
     individuo *a,*b;
@@ -177,7 +173,7 @@ int comparar_indiv(const void *i,
         return 0;
 }
 /*****/
-void copy_individuo(individuo from_ind,
+void copyIndividuo (individuo from_ind,
                     individuo *to_ind,
                     int PERIODOS,
                     int TERRENOS)
@@ -195,13 +191,13 @@ void copy_individuo(individuo from_ind,
     }
 }
 /*****/
-void crossover(individuo pai1,
-               individuo pai2,
-               individuo *filho1,
-               individuo *filho2,
-               int PERIODOS,
-               int TERRENOS,
-               int *lucratividade_especies)
+void crossover (individuo pai1,
+                individuo pai2,
+                individuo *filho1,
+                individuo *filho2,
+                int PERIODOS,
+                int TERRENOS,
+                int *lucratividade_especies)
 {
     int i, j;
     int division_line = (int)(TERRENOS * MAX_CROSSOVER_PERCENTAGE);
@@ -230,21 +226,21 @@ void crossover(individuo pai1,
         }
     }
     
-    (*filho1).f_obj = calcular_nova_fobj((*filho1),
+    (*filho1).f_obj = calcularNovaFObj ((*filho1),
                                          PERIODOS,
                                          TERRENOS,
                                          lucratividade_especies);
-    (*filho2).f_obj = calcular_nova_fobj((*filho2),
+    (*filho2).f_obj = calcularNovaFObj ((*filho2),
                                          PERIODOS,
                                          TERRENOS,
                                          lucratividade_especies);
 
 }
 /*****/
-void gerar_conjunto_pais(individuo *populacao,
-                         int *indPai1,
-                         int *indPai2,
-                         int QTDE)
+void gerarConjuntoPais (individuo *populacao,
+                        int *indPai1,
+                        int *indPai2,
+                        int QTDE)
 {
     int i;
     
@@ -260,7 +256,7 @@ void gerar_conjunto_pais(individuo *populacao,
     }
 }
 /*****/
-int individuo_aleatorio(int n)
+int individuo_aleatorio (int n)
 {
     double aux;
     int i;
@@ -274,8 +270,8 @@ int individuo_aleatorio(int n)
     return i;
 }
 /*****/
-int inteiro(int a,
-            int b)
+int inteiro (int a,
+             int b)
 {
     double aux;
     int i;
@@ -287,11 +283,11 @@ int inteiro(int a,
     return i;
 }
 /*****/
-void make_new_population(individuo *new_population,
-                         individuo *combined_group,
-                         int POPULACAO,
-                         int PERIODOS,
-                         int TERRENOS)
+void makeNewPopulation (individuo *new_population,
+                        individuo *combined_group,
+                        int POPULACAO,
+                        int PERIODOS,
+                        int TERRENOS)
 {
     
     double *prob;
@@ -313,10 +309,10 @@ void make_new_population(individuo *new_population,
         if (i < num_elite)
         {
             selected[i] = 1;
-            copy_individuo(combined_group[i],
-                           &new_population[i],
-                           PERIODOS,
-                           TERRENOS);
+            copyIndividuo(combined_group[i],
+                          &new_population[i],
+                          PERIODOS,
+                          TERRENOS);
         }
         else
         {
@@ -335,7 +331,7 @@ void make_new_population(individuo *new_population,
         if (selected[i])
             continue;
         
-        copy_individuo(combined_group[i],
+        copyIndividuo (combined_group[i],
                        &new_population[num_items_selected],
                        PERIODOS,
                        TERRENOS);
@@ -349,7 +345,7 @@ void make_new_population(individuo *new_population,
     return;
 }
 /*****/
-void merge_populations(individuo *group_A,
+void mergePopulations (individuo *group_A,
                        individuo *group_B,
                        individuo *combined_group,
                        int PERIODOS,
@@ -359,22 +355,28 @@ void merge_populations(individuo *group_A,
     int i,k;
     for (i = 0; i < POPULACAO; i++)
     {
-        copy_individuo(group_A[i], &combined_group[i], PERIODOS, TERRENOS);
+        copyIndividuo (group_A[i],
+                       &combined_group[i],
+                       PERIODOS,
+                       TERRENOS);
     }
     for (i = 0, k = POPULACAO; i < POPULACAO; i++, k++)
     {
-        copy_individuo(group_B[i], &combined_group[k], PERIODOS, TERRENOS);
+        copyIndividuo (group_B[i],
+                       &combined_group[k],
+                       PERIODOS,
+                       TERRENOS);
     }
 }
 /*****/
-void mutation(individuo object,
-              int ESPECIES,
-              int PERIODOS,
-              int TERRENOS,
-              int PERIODOS_ANO,
-              int *temp_proc,
-              int **per_plantio,
-              int *lucratividade_especies)
+void mutation (individuo object,
+               int ESPECIES,
+               int PERIODOS,
+               int TERRENOS,
+               int PERIODOS_ANO,
+               int *temp_proc,
+               int **per_plantio,
+               int *lucratividade_especies)
 {
     int *mutated, i, mutations = 0;
     mutated = (int *)calloc(TERRENOS, sizeof(int));
@@ -389,13 +391,13 @@ void mutation(individuo object,
             if (mutated[i])
                 continue;
             
-            object.f_obj = create_row (object.sol[i],
-                                       ESPECIES,
-                                       PERIODOS,
-                                       PERIODOS_ANO,
-                                       temp_proc,
-                                       per_plantio,
-                                       lucratividade_especies);
+            object.f_obj = createRow (object.sol[i],
+                                      ESPECIES,
+                                      PERIODOS,
+                                      PERIODOS_ANO,
+                                      temp_proc,
+                                      per_plantio,
+                                      lucratividade_especies);
             mutated[i] = 1;
             mutations++;
         }
@@ -405,17 +407,17 @@ void mutation(individuo object,
     return;
 }
 /*****/
-void ordenar_populacao(individuo *populacao,
+void ordenarPopulacao (individuo *populacao,
                        int POPULACAO)
 {
     qsort(populacao,
           POPULACAO,
           sizeof(individuo),
-          comparar_indiv);
+          compararIndiv);
 }
 /*****/
-individuo torneio(individuo pai1,
-                  individuo pai2)
+individuo torneio (individuo pai1,
+                   individuo pai2)
 {
     int aux = pai1.f_obj - pai2.f_obj;
         
@@ -440,7 +442,7 @@ individuo torneio(individuo pai1,
     }
 }
 /*****/
-double uniforme(double a, double b)
+double uniforme (double a, double b)
 {
     double beta, aux;
     aux = (double)rand()/((double)RAND_MAX + 1);

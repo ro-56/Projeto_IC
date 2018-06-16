@@ -2,7 +2,7 @@
 #include "individuo.h"
 
 
-individuo criar_individuo(int PERIODOS,
+individuo criarIndividuo(int PERIODOS,
                           int ESPECIES,
                           int TERRENOS,
                           int *temp_proc,
@@ -26,7 +26,7 @@ individuo criar_individuo(int PERIODOS,
     {
         for (j = 0; j < PERIODOS; j++)
         {
-            head = list_especies(ESPECIES,
+            head = listEspecies(ESPECIES,
                                  PERIODOS,
                                  j,
                                  temp_proc,
@@ -61,7 +61,7 @@ individuo criar_individuo(int PERIODOS,
                 plant_count--;
             }
             
-            free_memory(head);
+            freeMemory(head);
             head = NULL;
         }
     }
@@ -137,7 +137,7 @@ especies* create(int data,especies *next)
     return new_item;
 }
 /*****/
-int create_row (int *row,
+int createRow (int *row,
                 int ESPECIES,
                 int PERIODOS,
                 int PERIODOS_ANO,
@@ -151,7 +151,7 @@ int create_row (int *row,
     
     for (j = 0; j < PERIODOS; j++)
     {
-        head = list_especies(ESPECIES,
+        head = listEspecies(ESPECIES,
                              PERIODOS,
                              j,
                              temp_proc,
@@ -186,14 +186,14 @@ int create_row (int *row,
             plant_count--;
         }
         
-        free_memory(head);
+        freeMemory(head);
         head = NULL;
     }
     
     return f_obj;
 }
 /*****/
-void free_memory(especies *head)
+void freeMemory(especies *head)
 {
     especies *aux;
     while(head)
@@ -204,7 +204,7 @@ void free_memory(especies *head)
     }
 }
 /*****/
-especies* list_especies(int ESPECIES, int PERIODOS, int periodo,
+especies* listEspecies(int ESPECIES, int PERIODOS, int periodo,
                         int *temp_proc, int **per_plantio,
                         int last_esp, int PERIODOS_ANO)
 {

@@ -2,7 +2,7 @@
 
 char nome[] = "entrada.txt";
 
-void ler_dados (int *PERIODOS_ANO, int *PERIODOS, int *ESPECIES, int *TERRENOS, int **temp_proc, int ***per_plantio, int **lucratividade_especies)
+void lerDados (int *PERIODOS_ANO, int *PERIODOS, int *ESPECIES, int *TERRENOS, int **temp_proc, int ***per_plantio, int **lucratividade_especies)
 {
     FILE *f;
     char trash[255];

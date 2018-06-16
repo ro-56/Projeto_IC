@@ -34,7 +34,7 @@ int main()
     int i;
     
     /*************************** LEITURA ******************************/
-    ler_dados(&PERIODOS_ANO,
+    lerDados(&PERIODOS_ANO,
               &PERIODOS,
               &ESPECIES,
               &TERRENOS,
@@ -47,23 +47,22 @@ int main()
     populacao = (individuo *)malloc(POPULACAO * sizeof(individuo));
     for (i = 0; i < POPULACAO; i++)
     {
-        populacao[i] = criar_individuo(PERIODOS,
-                                       ESPECIES,
-                                       TERRENOS,
-                                       temp_proc,
-                                       per_plantio,
-                                       PERIODOS_ANO,
-                                       lucratividade_especies);
+        populacao[i] = criarIndividuo(PERIODOS,
+                                      ESPECIES,
+                                      TERRENOS,
+                                      temp_proc,
+                                      per_plantio,
+                                      PERIODOS_ANO,
+                                      lucratividade_especies);
     }
         
     /*************************** GENETICO ******************************/
     
-    ordenar_populacao(populacao, POPULACAO);
+    ordenarPopulacao(populacao, POPULACAO);
     
-    /*************************** TEST ******************************/
     for (i = 0; i < GENERATIONS; i++)
     {
-        run_generation(populacao,
+        runGeneration(populacao,
                        POPULACAO,
                        PERIODOS,
                        TERRENOS,
@@ -74,11 +73,14 @@ int main()
                        per_plantio);
     }
     
-    display_individuo(populacao[0],
-                      PERIODOS,
-                      TERRENOS);
-    display_best_f_obj(populacao,
-                       POPULACAO);
+    displayIndividuo(populacao[0],
+                     PERIODOS,
+                     TERRENOS);
+    displayBestFObj(populacao,
+                    POPULACAO);
+    
+    /*************************** TEST ******************************/
+    
     /*************************** PRINT ******************************/
     gettimeofday(&stop_time, NULL);
     resul = (double)(stop_time.tv_sec - start_time.tv_sec);

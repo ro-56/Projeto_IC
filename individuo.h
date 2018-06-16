@@ -14,12 +14,12 @@ especies* add(especies* head,
 especies* create(int data,
                  especies* next);
 
-especies* list_especies(int ESPECIES,
+void freeMemory(especies *head);
+
+especies* listEspecies(int ESPECIES,
                         int PERIODOS,
                         int periodo,
                         int *temp_proc,
                         int **per_plantio,
                         int last_esp,
                         int PERIODOS_ANO);
-
-void free_memory(especies *head);

@@ -1,19 +1,19 @@
 #include "defs.h"
 
 
-void display_average_f_obj(individuo *group,
-                           int POPULACAO)
+void displayAverageFObj(individuo *group,
+                        int POPULACAO)
 {
-    printf("\nAverage F_obj: %.4f\n", get_average_f_obj(group,
-                                                        POPULACAO));
+    printf("\nAverage F_obj: %.4f\n", getAverageFObj(group,
+                                                     POPULACAO));
     return;
 }
 /*********/
-void display_best_f_obj(individuo *group,
-                           int POPULACAO)
+void displayBestFObj(individuo *group,
+                     int POPULACAO)
 {
-    printf("\nBest F_obj: %d\n", get_best_f_obj(group,
-                                                POPULACAO));
+    printf("\nBest F_obj: %d\n", getBestFObj(group,
+                                             POPULACAO));
     return;
 }
 /*********/
@@ -46,9 +46,9 @@ void display_best_individuo(individuo *group,
 }
 */
 /*********/
-void display_individuo(individuo object,
-                       int PERIODOS,
-                       int TERRENOS)
+void displayIndividuo(individuo object,
+                      int PERIODOS,
+                      int TERRENOS)
 {
     int i, j;
     
@@ -66,8 +66,8 @@ void display_individuo(individuo object,
     return;
 }
 /***************************/
-float get_average_f_obj(individuo *group,
-                        int POPULACAO)
+float getAverageFObj(individuo *group,
+                     int POPULACAO)
 {
     float average, sum_fobj = 0;;
     int i;
@@ -82,8 +82,8 @@ float get_average_f_obj(individuo *group,
     return average;
 }
 /*********/
-int get_best_f_obj(individuo *group,
-                   int POPULACAO)
+int getBestFObj(individuo *group,
+                int POPULACAO)
 {
     int i, best_fobj = 0;
     
