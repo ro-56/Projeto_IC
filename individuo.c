@@ -27,14 +27,15 @@ individuo criarIndividuo(int PERIODOS,
         for (j = 0; j < PERIODOS; j++)
         {
             head = listEspecies(ESPECIES,
-                                 PERIODOS,
-                                 j,
-                                 temp_proc,
-                                 per_plantio,
-                                 last_esp,
-                                 PERIODOS_ANO);
+                                PERIODOS,
+                                j,
+                                temp_proc,
+                                per_plantio,
+                                last_esp,
+                                PERIODOS_ANO);
             int auxj;
-            if (head != NULL){
+            if (head != NULL)
+            {
                 cursor = head;
                 int random_especie = rand() % count(head);
                 for (auxj = 0; auxj < random_especie; auxj++)
@@ -137,7 +138,7 @@ especies* create(int data,especies *next)
     return new_item;
 }
 /*****/
-int createRow (int *row,
+int createRow ( int *row,
                 int ESPECIES,
                 int PERIODOS,
                 int PERIODOS_ANO,
@@ -149,6 +150,13 @@ int createRow (int *row,
     int j,f_obj = 0;
     especies *head = NULL, *cursor = NULL;
     
+    //Reset row
+    for(j = 0; j < PERIODOS; j++)
+    {
+        row[j] = 0;
+    }
+    
+    //Create new row
     for (j = 0; j < PERIODOS; j++)
     {
         head = listEspecies(ESPECIES,
@@ -212,8 +220,8 @@ especies* listEspecies(int ESPECIES, int PERIODOS, int periodo,
     especies *aux = NULL;
     for (i = 0; i < ESPECIES; i++)
     {
-        if ((periodo % PERIODOS_ANO) >= (per_plantio[i][0] - 1) &&
-            ((periodo % PERIODOS_ANO) + temp_proc[i]) <= (per_plantio[i][1]) &&
+        if ((periodo % (PERIODOS_ANO)) >= (per_plantio[i][0] - 1) &&
+            ((periodo % (PERIODOS_ANO)) + temp_proc[i]) <= (per_plantio[i][1]) &&
             i != last_esp)
         {
             aux = add(aux,i);

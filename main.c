@@ -4,7 +4,7 @@
 
 #define MICRO_PER_SECOND 1000000
 #define POPULACAO 100
-#define GENERATIONS 1000
+#define GENERATIONS 100
 
 int main()
 {
@@ -60,6 +60,13 @@ int main()
     
     ordenarPopulacao(populacao, POPULACAO);
     
+    printf("Primeira Geracao");
+    displayIndividuo(populacao[0],
+                     PERIODOS,
+                     TERRENOS);
+    displayBestFObj(populacao,
+                    POPULACAO);
+    
     for (i = 0; i < GENERATIONS; i++)
     {
         runGeneration(populacao,
@@ -73,6 +80,7 @@ int main()
                        per_plantio);
     }
     
+    printf("Ultima Geracao");
     displayIndividuo(populacao[0],
                      PERIODOS,
                      TERRENOS);

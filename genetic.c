@@ -56,11 +56,13 @@ void runGeneration (individuo *populacao,
     
     for (i = 0; i < POPULACAO; i += 2)
     {
+        // Selecionar pais por torneio
         pai1 = torneio(populacao[indPai1[i]], populacao[indPai2[i]]);
         pai2 = torneio(populacao[indPai1[i+1]], populacao[indPai2[i+1]]);
         
         double rand_num = uniforme(0,1);
         
+        // Probabilidade de Crossover, copia individuos caso contrario
         if (rand_num <= PROBABILIDADE_CROSSOVER)
         {
             crossover (pai1,
@@ -83,6 +85,7 @@ void runGeneration (individuo *populacao,
                            TERRENOS);
         }
         
+        // Mutação de cada filho
         mutation (filhos[i],
                   ESPECIES,
                   PERIODOS,
@@ -135,19 +138,25 @@ void runGeneration (individuo *populacao,
     free (indPai2);
 }
 
-/*************************** AUX FUNCTIONS ******************************/
+/*************************** FUNCTIONS ******************************/
 
 int calcularNovaFObj (individuo solucao,
                       int PERIODOS,
                       int TERRENOS,
                       int *lucratividade_especies)
 {
+    // Calcula a lucratividade de cada individuo
+    
     int i, j, fobj = 0, last = 0;
     
     for (i = 0; i < TERRENOS; i++)
     {
         for (j = 0; j < PERIODOS; j++)
         {
+            /*
+             Adiciona o lucro da especie no periodo caso seja diferente do
+              periodo anterior e de 0
+            */
             if (solucao.sol[i][j] != 0 && solucao.sol[i][j] != last)
             {
                 last = solucao.sol[i][j];
@@ -178,6 +187,8 @@ void copyIndividuo (individuo from_ind,
                     int PERIODOS,
                     int TERRENOS)
 {
+    // Copia os campos do .from_ind. para o .to_ind.
+    
     int i,j;
     
     (*to_ind).f_obj = from_ind.f_obj;
